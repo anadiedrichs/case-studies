@@ -193,7 +193,7 @@ Para resolver este problema, existen diferentes algoritmos. Recuerda que los dif
 
 Para identificar la columna a predecir utilizaremos *Edit Metadata*. Debemos conectar la salida del dataset con la entrada de *Edit Metadata*. Usa el selector de columna a la derecha para elegir el campo.
 
-![Seleccionar columna](https://github.com/facundod/case-studies/blob/master/images/5-select-edit-metadata-column.PNG.PNG?raw=true)
+![Seleccionar columna](https://github.com/facundod/case-studies/blob/master/images/5-select-edit-metadata-column.PNG?raw=true)
 
 El dataset con el cual estamos trabajando tiene un 7% de jóvenes mujeres que tienen o tuvieron un embarazo adolescente. Si lo pensamos en frío, con tener un modelo que diga no ya estariamos cubriendo el 93% de los casos, pero lo que corresponde es balancear el conjunto de datos como se explica a continuación.
 
