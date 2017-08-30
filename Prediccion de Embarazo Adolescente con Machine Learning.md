@@ -32,7 +32,6 @@ La duración del proyecto fueron dos semanas, en las cuales iniciamos desde la e
 - [Exploración del dominio](#exploración-del-dominio)
 - [Preparación de los datos](#preparación-de-los-datos)
 - [Creación de modelos](#creación-de-modelos)
-- [Iteraciones de mejora](#iteraciones-de-mejora)
 - [Integración](#integración)
 
 ## Exploración del dominio ##
@@ -232,66 +231,16 @@ No obstante, si nos movemos hacia abajo veremos más métricas que definen el co
 
 ![Más métricas](https://github.com/fdavancens/case-studies/blob/master/images/9-more-metrics.PNG?raw=true)
 
-==========================================
-TODO: Rearmar para embarazo!
-
 Como podemos apreciar, lo que estamos haciendo es identificar cuatro casos distintos:
 
-- Estudiantes que dijimos que iban a abandonar, y abandonaron (verdadero positivo): 777
-- Estudiantes que dijimos que NO iban a abandonar, y abandonaron (falso negativo): 913
-- Estudiantes que dijimos que iban a abandonar, y NO abandonaron (falso positivo): 496
-- Estudiantes que dijimos que NO iban a abandonar, y NO abandonaron (verdadero negativo): 9474
+- Jóvenes mujeres que dijimos que tienen o tuvieron embarazo adolescente y efectivamente tuvieron un embarazo adolescente (verdadero positivo): 1516.
+- Jóvenes mujeres que dijimos que NO tienen o tuvieron embarazo adolescente pero tuvieron un embarazo adolescente (falso negativo): 169.
+- Jóvenes mujeres que dijimos que tienen o tuvieron embarazo adolescente pero NO tuvieron un embarazo adolescente (falso positivo): 72.
+- Jóvenes mujeres que dijimos que NO tienen o tuvieron embarazo adolescente y efectivamente fue así (verdadero negativo): 11702.
 
-Debemos ser cautelosos y evaluar estos puntos. Una buena pregunta para hacernos es cuál es el costo de cada escenario. En este caso, es mucho peor NO ayudar a un estudiante en riesgo de abandonar, que ayudar por demás a alguno que en realidad no iba abandonar. El costo de los falsos positivos supera el de los falsos negativos.
+Debemos ser cautelosos y evaluar estos puntos. Una buena pregunta para hacernos es cuál es el costo de cada escenario. En este caso, es mucho peor NO ayudar a una joven mujer en riesgo de quedar embarazada durante su adolescencia que ayudar por demás a una adolescente que NO quedará embarazada durante su adolescencia. En otras palabras, el costo de los falsos negativos supera el de los falsos positivos.
 
-Como podemos ver arriba, estamos identificando a 777 jóvenes, pero "dejando pasar" a unos 913. Debemos mejorar nuestro modelo.
-==============================================
-
-## Iteraciones de mejora ##
- 
-Descubrimos que nuestro modelo no es tan preciso, o que tal vez puede mejorar. ¿Cómo podemos mejorarlo? A continuación, algunas ideas:
-
-- [Utilizar menos variables](#utilizar-menos-variables)
-- [Modificar los parámetros del algoritmo](#modificar-los-parámetros-del-algoritmo)
-- [Medir el éxito de otra manera](#medir-el-éxito-de-otra-manera)
-
-
-Todos los anteriores puntos fueron parte de nuestro análisis para este proyecto. A continuación una breve explicación de cada uno.
-
-### Utilizar menos variables ###
-
-A veces menos es más, especialmente cuando pueda existir correlación entre dos o más variables que deberían ser independientes.
-
-Un ejemplo en nuestro caso, podría ser utilizar tanto la variable *edad* como la variable *año de nacimiento*. Claramente, habrá una correlación lineal y perfecta entre estas dos variables. El modelo se verá desbalanceado, favoreciendo la edad (o fecha de nacimiento) como un campo más poderoso.
-
->**Tip:** Azure Machine Learning hace sencilla la búsqueda de correlación entre variables. Lo veremos más adelante.
-
-Busca reducir tu cantidad de variables de entrada al modelo. Puedes usar el componente *Select Columns in Dataset*.
-
-
-### Modificar los parámetros del algoritmo ###
-
-Recuerda que el algoritmo es la secuencia lógica que utilizaremos para llegar a la mejor respuesta posible. Una buena práctica es realizar un barrido de parámetros para encontrar la mejor combinación posible.
-
-El módulo *Tune Model Hyperparameters* hace exactamente esto: barre los parámetros hasta llegar al mejor modelo encontrado.
-
-Más información sobre *Tune Model Hyperparameters* [aquí](https://msdn.microsoft.com/en-us/library/azure/dn905810.aspx)
-
-### Medir el éxito de otra manera ###
-
-Existen distintas maneras de medir si un modelo es exitoso o no. Estas son algunas de ellas:
-
-- *Accuracy* o exactitud: la proporción de casos predichos correctamente.
-- *Precision* o precisión: la proporción de *positivos* predichos correctamente.
-- Falsos negativos
-- Falsos positivos
-- Verdaderos negativos
-- Verdaderos positivos
-- *Recall*: proporción de verdaderos positivos identificados correctamente.
-- Puntaje F1: combinación entre *recall* y precisión.
-
->**Tip:** En el módulo de *Tune Model Hyperparameters*, verás que podrás entrenar modelos priorizando cada una de estas métricas. Es importante tener en cuenta aquella que mas importante sea para nuestro caso. Para más información puedes ver este [artículo](https://blogs.msdn.microsoft.com/andreasderuiter/2015/02/09/performance-measures-in-azure-ml-accuracy-precision-recall-and-f1-score/) 
-
+ Como parte del proceso hemos experimentado modificando los valores de *SMOTE*, pero la mejor *sencibilidad* (o recall) que obtuvimos es de 0,9 que nos indica la proporción de eventos positivos identificados correctamente.
 
 ## Integración ##
 
@@ -299,11 +248,9 @@ Existen distintas maneras de medir si un modelo es exitoso o no. Estas son algun
 
 Hemos llegado a la instancia donde estamos conformes sobre nuestro modelo, y queremos que sea consumido. La forma más simple será a través de un *Web Service REST*.
 
-Para crear el servicio, debemos correr nuestro experimento (si es que no lo hicimos) y hacer click en el botón de *SET UP WEB SERVICE* y luego en *Predictive Web Service [Recommended]*
+Para crear el servicio, debemos correr nuestro experimento (si es que no lo hicimos) y hacer click en el botón de *SET UP WEB SERVICE*.
 
-![Preparar el Web Service](https://github.com/marcelofelman/case-studies/blob/master/images/25-predictive-service.PNG?raw=true)
-
->**Tip:** Notarás que también hay servicios web de re-entrenamiento. Si quieres explóralos, pero lo dejaremos para otro caso de estudio.
+![Preparar el Web Service](https://github.com/fdavancens/case-studies/blob/master/images/10-predictive-service.PNG?raw=true)
 
 Esto nos generará una animación y creará una pestaña con el servicio web.
 
@@ -313,15 +260,14 @@ Deberás darle *Run* al servicio nuevamente, que es como si fuera "compilar" nue
 
 Finalmente, aparecerá el botón *DEPLOY WEB SERVICE* sobre el cual haremos click. Al cabo de unos segundos, nuestro servicio web estará listo para consumir.
 
-![Desplegar el Web Service](https://github.com/marcelofelman/case-studies/blob/master/images/26-deploy-service.PNG?raw=true)
+![Desplegar el Web Service](https://github.com/fdavancens/case-studies/blob/master/images/11-deploy-service.PNG?raw=true)
 
->**Tip:** Por ahora te recomiendo seguir utilizando la vista clásica.
 
 ### Probar el Web Service ###
 
 Una vez desplegado, verás la siguiente pantalla.
 
-![API del servicio](https://github.com/marcelofelman/case-studies/blob/master/images/27-published-service.PNG?raw=true)
+![API del servicio](https://github.com/fdavancens/case-studies/blob/master/images/12-published-service.PNG?raw=true)
 
 Notarás que tienes dos formas de utilizarlo:
 
@@ -332,7 +278,7 @@ Notarás que tienes dos formas de utilizarlo:
 
 Estos servicios pueden probarse directamente desde el portal. Para ello, puedes hacer click en el botón *TEST*. Te permitirá ingresar algunos campos, para finalmente darte una respuesta en formato *JSON*.
 
-![Probar el web service](https://github.com/marcelofelman/case-studies/blob/master/images/28-test-service.PNG?raw=true)
+![Probar el web service](https://github.com/fdavancens/case-studies/blob/master/images/13-test-service.PNG?raw=true)
 
 >**Tip:** También puedes probarlo integrándote con Excel. Es bastante simple y puede ahorrarte tiempo para ingresar atos.
 
@@ -344,8 +290,8 @@ Machine Learning es todo un mundo diferente, y puede resultar complejo para quie
 
 A través de un proceso iterativo de prueba y error, podemos ir acercándonos a una respuesta correcta y finalmente determinar si nuestro modelo es bueno o no.
 
-En nuestro caso, logramos un modelo predictivo que identifica correctamente a aproximadamente el 90% de los jóvenes que están en riesgo de abandonar el colegio. Esta herramienta permite al Gobierno tomar decisiones en tiempo real, y ayudar a aquellos que más lo necesiten.
+En nuestro caso, logramos un modelo predictivo que identifica correctamente a aproximadamente el 90% de las jóvenes mujeres están en riesgo quedar embarazadas durante su adolescencia. Esta herramienta permite al Gobierno tomar decisiones en tiempo real, y ayudar a aquellos que más lo necesiten.
 
 ## Agradecimientos ##
 
-El mayor agradecimiento al Ministerio de Primera Infancia del Gobierno Provincial de Salta, quienes sin lugar a dudas quieren cambiar este mundo para el bien de todos.
+El mayor agradecimiento al Ministerio de Primera Infancia del Gobierno Provincial de Salta, quienes sin lugar a dudas quieren cambiar este mundo para el bien de todos y a Microsoft por posibilitarnos el hecho de ser parte de dicho cambio.
