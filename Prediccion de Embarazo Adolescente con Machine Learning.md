@@ -165,7 +165,7 @@ Ahora, procedemos a ingresar al [Azure Machine Learning Studio](https://studio.a
 
 Al ingresar, hacemos click en *New* y luego en *Dataset*
 
-![Subir el conjunto de datos](https://github.com/fdavancens/case-studies/blob/master/images/1-upload-dataset.PNG?raw=true)
+![Subir el conjunto de datos](https://github.com/facundod/case-studies/blob/master/images/1-upload-dataset.PNG?raw=true)
 
 Subimos nuestro conjunto de datos, y al cabo de unos segundos estará en Azure.
 
@@ -175,15 +175,15 @@ Ahora puedes crear un nuevo experimento haciendo click en *+NEW > Blank Experime
 
 Ya subido el dataset, el mismo aparecerá en la solapa *My datasets* y lo podrás utilizar inmediatamente. Para esto, simplemente lo arrastras a la ventana principal.
 
-![Nuevo experimento](https://github.com/fdavancens/case-studies/blob/master/images/2-new-experiment.PNG?raw=true)
+![Nuevo experimento](https://github.com/facundod/case-studies/blob/master/images/2-new-experiment.PNG?raw=true)
 
 Si quieres visualizarlo, puedes hacer click en la salida del módulo y otro click en *visualize*.
 
-![Visualizar conjunto de datos](https://github.com/fdavancens/case-studies/blob/master/images/3-visualize-dataset.PNG?raw=true)
+![Visualizar conjunto de datos](https://github.com/facundod/case-studies/blob/master/images/3-visualize-dataset.PNG?raw=true)
 
 Deberías ver una pantalla similar a esta, pero con tus propios datos. Si haces click en cada una de las columnas, podrás ver la distribución junto con un histograma a la derecha.
 
-![Visualizar los datos](https://github.com/fdavancens/case-studies/blob/master/images/4-visualize-chart.PNG?raw=true)
+![Visualizar los datos](https://github.com/facundod/case-studies/blob/master/images/4-visualize-chart.PNG?raw=true)
 
 ## Creación de modelos ##
 
@@ -193,7 +193,7 @@ Para resolver este problema, existen diferentes algoritmos. Recuerda que los dif
 
 Para identificar la columna a predecir utilizaremos *Edit Metadata*. Debemos conectar la salida del dataset con la entrada de *Edit Metadata*. Usa el selector de columna a la derecha para elegir el campo.
 
-![Seleccionar columna](https://github.com/fdavancens/case-studies/blob/master/images/5-select-edit-metadata-column.PNG.PNG?raw=true)
+![Seleccionar columna](https://github.com/facundod/case-studies/blob/master/images/5-select-edit-metadata-column.PNG.PNG?raw=true)
 
 El dataset con el cual estamos trabajando tiene un 7% de jóvenes mujeres que tienen o tuvieron un embarazo adolescente. Si lo pensamos en frío, con tener un modelo que diga no ya estariamos cubriendo el 93% de los casos, pero lo que corresponde es balancear el conjunto de datos como se explica a continuación.
 
@@ -206,7 +206,7 @@ Los conjuntos de datos desbalanceados son un problema típico. Esta situación p
 
 En este caso, optamos por usar *Oversampling*. De esta manera, logramos un conjunto de datos más balanceado. Una manera simple y casi automática de lograr esto, es utilizando el módulo *SMOTE*, que significa *Synthetic Minority Oversampling* o bien sobre-muestreo sintético de minorías. No olvides aquí también editar metadata. Más información sobre SMOTE, [aquí](https://msdn.microsoft.com/en-us/library/azure/mt429826.aspx).
 
-![SMOTE](https://github.com/fdavancens/case-studies/blob/master/images/6-smote.PNG?raw=true)
+![SMOTE](https://github.com/facundod/case-studies/blob/master/images/6-smote.PNG?raw=true)
 
 >**Tip:** En la solapa Propiedades de *SMOTE*, puedes ajustar el porcentaje de aumento de las ocurrencias minoritarias. Puedes jugar con este número hasta alcanzar un resultado que te sirva.
 
@@ -217,11 +217,11 @@ Utilizaremos el módulo *Cross-Validate Model* el cual toma como entrada la sali
 
 Por último evaluaremos el modelo utilizando el módulo *Evaluate model*, el cual tendrá conectada en su entrada la salida proveniente de *Cross-Validate Model*
 
-![Evaluar modelo](https://github.com/fdavancens/case-studies/blob/master/images/7-evaluate-model.PNG?raw=true)
+![Evaluar modelo](https://github.com/facundod/case-studies/blob/master/images/7-evaluate-model.PNG?raw=true)
 
 Si damos *Run* visualizamos la salida de *Evaluate model*, podremos ver la siguiente gráfica:
 
-![Comportamiento](https://github.com/fdavancens/case-studies/blob/master/images/8-auc.PNG?raw=true)
+![Comportamiento](https://github.com/facundod/case-studies/blob/master/images/8-auc.PNG?raw=true)
 
 Esta gráfica demuestra los casos que fueron correctamente identificados, respecto los que no. Esencialmente, el área debajo de la curva (*Area under the curve* o también *AUC*) debe ser lo mayor posible: no queremos dejar casos afuera.
 
@@ -229,7 +229,7 @@ A simple vista, nuestro modelo parece comportarse de una manera muy acertada: el
 
 No obstante, si nos movemos hacia abajo veremos más métricas que definen el comportamiento de nuestro modelo predictivo.
 
-![Más métricas](https://github.com/fdavancens/case-studies/blob/master/images/9-more-metrics.PNG?raw=true)
+![Más métricas](https://github.com/facundod/case-studies/blob/master/images/9-more-metrics.PNG?raw=true)
 
 Como podemos apreciar, lo que estamos haciendo es identificar cuatro casos distintos:
 
@@ -250,7 +250,7 @@ Hemos llegado a la instancia donde estamos conformes sobre nuestro modelo, y que
 
 Para crear el servicio, debemos correr nuestro experimento (si es que no lo hicimos) y hacer click en el botón de *SET UP WEB SERVICE*.
 
-![Preparar el Web Service](https://github.com/fdavancens/case-studies/blob/master/images/10-predictive-service.PNG?raw=true)
+![Preparar el Web Service](https://github.com/facundod/case-studies/blob/master/images/10-predictive-service.PNG?raw=true)
 
 Esto nos generará una animación y creará una pestaña con el servicio web.
 
@@ -260,14 +260,14 @@ Deberás darle *Run* al servicio nuevamente, que es como si fuera "compilar" nue
 
 Finalmente, aparecerá el botón *DEPLOY WEB SERVICE* sobre el cual haremos click. Al cabo de unos segundos, nuestro servicio web estará listo para consumir.
 
-![Desplegar el Web Service](https://github.com/fdavancens/case-studies/blob/master/images/11-deploy-service.PNG?raw=true)
+![Desplegar el Web Service](https://github.com/facundod/case-studies/blob/master/images/11-deploy-service.PNG?raw=true)
 
 
 ### Probar el Web Service ###
 
 Una vez desplegado, verás la siguiente pantalla.
 
-![API del servicio](https://github.com/fdavancens/case-studies/blob/master/images/12-published-service.PNG?raw=true)
+![API del servicio](https://github.com/facundod/case-studies/blob/master/images/12-published-service.PNG?raw=true)
 
 Notarás que tienes dos formas de utilizarlo:
 
@@ -278,7 +278,7 @@ Notarás que tienes dos formas de utilizarlo:
 
 Estos servicios pueden probarse directamente desde el portal. Para ello, puedes hacer click en el botón *TEST*. Te permitirá ingresar algunos campos, para finalmente darte una respuesta en formato *JSON*.
 
-![Probar el web service](https://github.com/fdavancens/case-studies/blob/master/images/13-test-service.PNG?raw=true)
+![Probar el web service](https://github.com/facundod/case-studies/blob/master/images/13-test-service.PNG?raw=true)
 
 >**Tip:** También puedes probarlo integrándote con Excel. Es bastante simple y puede ahorrarte tiempo para ingresar atos.
 
