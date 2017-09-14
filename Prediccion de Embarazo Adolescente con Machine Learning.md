@@ -12,7 +12,7 @@ Afortunadamente, tuvimos acceso a un amplio espectro de datos. Utilizamos un *da
 
 A través de las herramientas [Azure Machine Learning](https://azure.microsoft.com/en-us/services/machine-learning/
 ) y [SQL Server 2016](https://www.microsoft.com/en-us/sql-server/sql-server-2016
-), logramos crear diferentes modelos predictivos que permiten detectar hasta el 90% de los casos en riesgo de deserción.
+), logramos crear diferentes modelos predictivos que permiten detectar hasta el 90% de los casos en riesgo de embarazo adolescente.
 
 ## Contexto ##
 
